@@ -55,9 +55,16 @@
             <?php
             session_start();
 
+            // Fungsi untuk mengambil nilai dari file .env
+            function getEnvValue($key)
+            {
+                $env = parse_ini_file('.env');
+                return isset($env[$key]) ? $env[$key] : null;
+            }
+
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $username = htmlspecialchars($_POST['username']);
-                $apiKey = 'e413cefc33b4aede672ecf9950efa851dc1768c055589b1b7b';
+                $apiKey = getEnvValue('API_KEY'); // Ambil API key dari .env
                 $url = 'https://api.velixs.com/instagram';
 
                 $data = array(
